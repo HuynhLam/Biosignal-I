@@ -24,6 +24,7 @@
 %
 % $Id: PSD_EMG,v1.0 2016/11/28 10:31:34 lhuynh Exp $
 % $Id: PSD_EMG,v1.1 2016/12/05 11:47:16 lhuynh Exp $
+% $Id: PSD_EMG,v1.2 2016/12/06 18:43:01 lhuynh Exp $
 
 %% Analysize EMGforce1
 %1.a.load EMGforce1 signals
