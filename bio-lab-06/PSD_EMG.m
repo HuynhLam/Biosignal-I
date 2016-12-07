@@ -11,7 +11,7 @@
 %       power spectral density (PSD) of EMG signals
 % 
 % Useful MATLAB commands
-%       diff, buffer, pwelch, meanfreq, mean, for
+%       diff, buffer, pwelch, meanfreq, mean
 %
 % Power spectral density function (PSD) shows the strength of the variations(energy) 
 % as a function of frequency. In other words, it shows at which frequencies variations 
