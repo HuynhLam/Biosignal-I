@@ -24,7 +24,8 @@
 %
 % $Id: PSD_EMG,v1.0 2016/11/28 10:31:34 lhuynh Exp $
 % $Id: PSD_EMG,v1.1 2016/12/05 11:47:16 lhuynh Exp $
-% $Id: PSD_EMG,v1.2 2016/12/06 18:43:01 lhuynh Exp $
+% $Id: PSD_EMG,v1.4 2016/12/06 18:43:01 lhuynh Exp $
+% $Id: PSD_EMG,v1.5 2016/12/07 12:40:01 lhuynh Exp $
 
 %% Analysize EMGforce1
 %1.a.load EMGforce1 signals
@@ -103,7 +104,8 @@ figure('Name', 'PSD of EMGforce 1', 'NumberTitle', 'off');
 for i=1:N
     y = buffer(emg(beg75(i):end75(i)), segmentL, overlapL);
     %computer the one-side PSD for each identified section 
-    [pxx, f] = pwelch(y, segmentL, overlapL, nfft, fs); 
+    %[pxx, f] = pwelch(y, segmentL, overlapL, nfft, fs);
+    [pxx, f] = pwelch(y, [], [], nfft, fs);
     [sz1, sz2] = size(pxx);    
     pMeanxx = zeros(1, sz1);
     for j=1:sz1
@@ -112,7 +114,7 @@ for i=1:N
     
     meanFrequency = sum(f.*(pMeanxx)') / sum(pMeanxx);
     freq = meanfreq(pMeanxx, f);
-    fprintf('[%d] meanFrequency = %.5f, matlab meanfreq = %.5f\n', i, meanFrequency, freq);
+    fprintf('[%d] meanFrequency = %.5f(Hz), matlab meanfreq = %.5f(Hz)\n', i, meanFrequency, freq);
     
     %figure with each of the EMG signal sections and the corresponding average PSD?s.
     %one for time(s) & one for frequency(Hz)
@@ -126,6 +128,7 @@ for i=1:N
     ax(2*i) = subplot(N,2,2*i); 
     %plot(ax(2*i), f, pxx);
     plot(ax(2*i), f, pMeanxx, 'color', [0.0 0.749 1.0]);
+    xlim([0 200])
     xlabel(ax(2*i), 'Hz');
     ylabel(ax(2*i), 'mV^2 / Hz'); %assume resistance = 1 ohm
     title(ax(2*i),['Section [', num2str(i),'] in frequency domain']);
@@ -210,7 +213,8 @@ for i=1:N
     y = buffer(emg(beg75(i):end75(i)), segmentL, overlapL);
     %computer the one-side PSD for each identified section 
     % mW = mV^2 / om
-    [pxx, f] = pwelch(y, segmentL, overlapL, nfft, fs); 
+    %[pxx, f] = pwelch(y, segmentL, overlapL, nfft, fs);
+    [pxx, f] = pwelch(y, [], [], nfft, fs); 
     [sz1, sz2] = size(pxx);    
     pMeanxx = zeros(1, sz1);
     for j=1:sz1
@@ -219,7 +223,7 @@ for i=1:N
     
     meanFrequency = sum(f.*(pMeanxx)') / sum(pMeanxx);
     freq = meanfreq(pMeanxx, f);
-    fprintf('[%d] meanFrequency = %.5f, matlab meanfreq = %.5f\n', i, meanFrequency, freq);
+    fprintf('[%d] meanFrequency = %.5f(Hz), matlab meanfreq = %.5f(Hz)\n', i, meanFrequency, freq);
     
     %figure with each of the EMG signal sections and the corresponding average PSD?s.
     %one for time(s) & one for frequency(Hz)
@@ -233,6 +237,7 @@ for i=1:N
     ax(2*i) = subplot(N,2,2*i); 
     %plot(ax(2*i), f, pxx);
     plot(ax(2*i), f, pMeanxx, 'color', [0.0 0.749 1.0]);
+    xlim([0 200]);
     xlabel(ax(2*i), 'Hz');
     ylabel(ax(2*i), 'mV^2 / Hz'); %assume resistance = 1 ohm
     title(ax(2*i),['Section [', num2str(i),'] in frequency domain']);
